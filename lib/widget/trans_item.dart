@@ -12,17 +12,40 @@ class TransItem extends StatelessWidget {
     return Row(
       children: [
         Container(
+          margin: EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 15,
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(width: 2.0, color: Colors.purple),
+          ),
+          padding: EdgeInsets.all(2.5),
           child: Text(
-            money.toString(),
+            '\$$money',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Colors.purple,
+            ),
           ),
         ),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+              ),
             ),
             Text(
               date.toString(),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+                color: Colors.grey,
+              ),
             )
           ],
         )
