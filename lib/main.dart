@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expense/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -7,6 +8,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+      title: "Flutter app",
+      home: MyHomePage(),
+    );
   }
 }
