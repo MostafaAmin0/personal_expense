@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expense/models/transaction_list.dart';
+import 'package:personal_expense/widget/trans_item.dart';
 
 class MyHomePage extends StatelessWidget {
   final Expense expense = Expense();
@@ -11,6 +12,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Personal Expense'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Card(
             color: Colors.blue,
@@ -22,8 +24,10 @@ class MyHomePage extends StatelessWidget {
           ),
           Column(
             children: expense.transactionsList.map<Widget>((tx) {
-              return Card(
-                child: Text(tx.name.toString()),
+              return TransItem(
+                name: tx.name,
+                date: tx.date,
+                money: tx.money,
               );
             }).toList(),
           )
