@@ -1,6 +1,6 @@
 import 'package:personal_expense/models/transaction.dart';
 
-class Expense {
+class TransactionList {
   List<Transaction> _transactionsList = [
     Transaction(
       id: '1',
@@ -16,5 +16,5 @@ class Expense {
     ),
   ];
 
-  get transactionsList => _transactionsList;
+  get list => _transactionsList;
 }
