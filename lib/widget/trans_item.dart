@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransItem extends StatelessWidget {
   final String name;
@@ -40,7 +41,7 @@ class TransItem extends StatelessWidget {
               ),
             ),
             Text(
-              date.toString(),
+              DateFormat.yMMMd().format(date),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12.0,
