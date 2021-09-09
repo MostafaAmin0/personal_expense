@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expense/models/transaction.dart';
 import 'package:personal_expense/models/transaction_list.dart';
 
 import 'expense_list.dart';
@@ -13,11 +12,17 @@ class UserTransaction extends StatefulWidget {
 class _UserTransactionState extends State<UserTransaction> {
   final TransactionList transactions = TransactionList();
 
+  void addNewTx(String title, String price) {
+    setState(() {
+      transactions.addTransaction(title, double.parse(price));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        NewTransaction(),
+        NewTransaction(addNewTx),
         ExpenseList(transactions),
       ],
     );

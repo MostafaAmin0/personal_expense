@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatelessWidget {
+  final Function addTx;
+  NewTransaction(this.addTx);
+
   @override
   Widget build(BuildContext context) {
     String? titleInput;
@@ -31,9 +34,8 @@ class NewTransaction extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(vertical: 10.0),
               child: TextButton(
-                onPressed: () {
-                  print(titleInput);
-                  print(priceInput);
+                onPressed: (){
+                  addTx(titleInput,priceInput);
                 },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.all(15.0),

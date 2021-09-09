@@ -17,4 +17,15 @@ class TransactionList {
   ];
 
   get list => _transactionsList;
+
+  void addTransaction(String name, double money) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      name: name,
+      money: money,
+      date: DateTime.now(),
+    );
+
+    _transactionsList.add(newTx);
+  }
 }
