@@ -11,16 +11,16 @@ class ExpenseList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300.0,
-      child: SingleChildScrollView(
-        child: Column(
-          children: transactions.list.map<Widget>((tx) {
-            return TransItem(
-              name: tx.name,
-              date: tx.date,
-              money: tx.money,
-            );
-          }).toList(),
-        ),
+      child: ListView.builder(
+        padding:EdgeInsets.all(10.0),
+        itemCount: transactions.list.length,
+        itemBuilder: (ctx , index) {
+          return TransItem(
+            name: transactions.list[index].name,
+            date: transactions.list[index].date,
+            money: transactions.list[index].money,
+          );
+        },
       ),
     );
   }
