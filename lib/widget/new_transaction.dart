@@ -4,6 +4,9 @@ class NewTransaction extends StatelessWidget {
   final Function addTx;
   NewTransaction(this.addTx);
 
+  final titleController =TextEditingController();
+  final priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     String? titleInput;
@@ -22,6 +25,7 @@ class NewTransaction extends StatelessWidget {
               onChanged: (title) {
                 titleInput = title;
               },
+              controller: titleController,
             ),
             TextField(
               decoration: InputDecoration(
@@ -30,12 +34,15 @@ class NewTransaction extends StatelessWidget {
               onChanged: (price) {
                 priceInput = price;
               },
+              controller: priceController,
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 10.0),
               child: TextButton(
                 onPressed: (){
                   addTx(titleInput,priceInput);
+                  titleController.clear();
+                  priceController.clear();
                 },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.all(15.0),
