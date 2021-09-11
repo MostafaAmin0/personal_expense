@@ -12,9 +12,9 @@ class UserTransaction extends StatefulWidget {
 class _UserTransactionState extends State<UserTransaction> {
   final TransactionList transactions = TransactionList();
 
-  void addNewTx(String title, String price) {
+  void addNewTx(String title, double price) {
     setState(() {
-      transactions.addTransaction(title, double.parse(price));
+      transactions.addTransaction(title,price);
     });
   }
 
