@@ -22,7 +22,7 @@ class TransItem extends StatelessWidget {
           ),
           padding: EdgeInsets.all(2.5),
           child: Text(
-            '\$$money',
+            '\$${money.toStringAsFixed(2)}',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
