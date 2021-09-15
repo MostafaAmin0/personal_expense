@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expense/widget/expense_list.dart';
 import 'package:personal_expense/widget/new_transaction.dart';
-
 import 'models/transaction_list.dart';
+import 'widget/chart.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -48,14 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Card(
-            color: Colors.blue,
-            child: Container(
-              child: Text('Chart !'),
-              width: 100.0,
-            ),
-            elevation: 5.0,
-          ),
+          Chart(transactions.recentWeek),
           ExpenseList(transactions),
         ],
       ),

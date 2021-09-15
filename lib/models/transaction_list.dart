@@ -18,6 +18,12 @@ class TransactionList {
 
   get list => _transactionsList;
 
+  get recentWeek {
+    return _transactionsList.where((element) {
+      return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
   void addTransaction(String name, double money) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
