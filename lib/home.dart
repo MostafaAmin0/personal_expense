@@ -12,9 +12,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TransactionList transactions = TransactionList();
 
-  void addNewTx(String title, double price) {
+  void addNewTx(String title, double price , DateTime date) {
     setState(() {
-      transactions.addTransaction(title, price);
+      transactions.addTransaction(title, price,date);
     });
   }
 

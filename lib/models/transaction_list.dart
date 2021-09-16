@@ -24,12 +24,12 @@ class TransactionList {
     }).toList();
   }
 
-  void addTransaction(String name, double money) {
+  void addTransaction(String name, double money, DateTime date) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       name: name,
       money: money,
-      date: DateTime.now(),
+      date: date,
     );
 
     _transactionsList.add(newTx);

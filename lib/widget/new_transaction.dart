@@ -11,7 +11,6 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final priceController = TextEditingController();
   DateTime? _selectedDate;
 
@@ -21,9 +20,9 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredPrice = double.parse(priceController.text);
     final enteredTitle = titleController.text;
 
-    if (enteredTitle.isEmpty || enteredPrice < 0) return;
+    if (enteredTitle.isEmpty || enteredPrice < 0 || _selectedDate == null) return;
 
-    widget.addTx(enteredTitle, enteredPrice);
+    widget.addTx(enteredTitle, enteredPrice,_selectedDate);
     titleController.clear();
     priceController.clear();
     Navigator.pop(context);
