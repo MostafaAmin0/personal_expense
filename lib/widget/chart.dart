@@ -28,7 +28,7 @@ class Chart extends StatelessWidget {
         day: DateFormat.E().format(weekDay),
         money: total,
       );
-    });
+    }).reversed.toList();
   }
 
   double get maxSpend {
