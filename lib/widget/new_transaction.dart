@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -12,6 +13,7 @@ class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
 
   final priceController = TextEditingController();
+  DateTime? _selectedDate;
 
   void submitData() {
     if (priceController.text.isEmpty) return;
@@ -25,6 +27,21 @@ class _NewTransactionState extends State<NewTransaction> {
     titleController.clear();
     priceController.clear();
     Navigator.pop(context);
+  }
+
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now(),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _selectedDate = value;
+        });
+      }
+    });
   }
 
   @override
@@ -60,12 +77,36 @@ class _NewTransactionState extends State<NewTransaction> {
               keyboardType: TextInputType.number,
             ),
             Container(
+              height: 60,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'No Date Choosen'
+                          : 'Picked Date : ${DateFormat.yMMMd().format(_selectedDate!)}',
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: _showDatePicker,
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
               margin: EdgeInsets.symmetric(vertical: 10.0),
               child: TextButton(
                 onPressed: submitData,
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.all(15.0),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Theme.of(context).primaryColor,
                   primary: Colors.white,
                 ),
                 child: Text('Add Transaction'),
