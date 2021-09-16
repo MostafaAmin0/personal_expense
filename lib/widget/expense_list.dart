@@ -3,9 +3,10 @@ import 'package:personal_expense/models/transaction_list.dart';
 import 'package:personal_expense/widget/trans_item.dart';
 
 class ExpenseList extends StatelessWidget {
-  const ExpenseList(this.transactions);
+  const ExpenseList(this.transactions,this.deleteTrans);
 
   final TransactionList transactions;
+  final Function deleteTrans;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,8 @@ class ExpenseList extends StatelessWidget {
               itemCount: transactions.list.length,
               itemBuilder: (ctx, index) {
                 return TransItem(
-                  name: transactions.list[index].name,
-                  date: transactions.list[index].date,
-                  money: transactions.list[index].money,
+                  tx: transactions.list[index],
+                  deleteTrans: deleteTrans,
                 );
               },
             ),

@@ -34,4 +34,8 @@ class TransactionList {
 
     _transactionsList.add(newTx);
   }
+
+  void deleteTransaction(String id) {
+    _transactionsList.removeWhere((element) => id == element.id);
+  }
 }

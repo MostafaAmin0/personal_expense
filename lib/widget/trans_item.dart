@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_expense/models/transaction.dart';
 
 class TransItem extends StatelessWidget {
-  final String name;
-  final DateTime date;
-  final double money;
+  final Transaction tx; 
+  final Function deleteTrans;
 
-  TransItem({required this.name, required this.date, required this.money});
+  TransItem({required this.tx,required this.deleteTrans});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +19,23 @@ class TransItem extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(6.0),
             child: FittedBox(
-              child: Text('\$${money.toStringAsFixed(2)}'),
+              child: Text('\$${tx.money.toStringAsFixed(2)}'),
             ),
           ),
         ),
         title: Text(
-          name,
+          tx.name,
           style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
-          DateFormat.yMMMd().format(date),
+          DateFormat.yMMMd().format(tx.date),
+        ),
+        trailing: TextButton(
+          child: Icon(Icons.delete),
+          style: TextButton.styleFrom(primary: Theme.of(context).errorColor),
+          onPressed: () {
+            deleteTrans(tx.id);
+          },
         ),
       ),
     );
