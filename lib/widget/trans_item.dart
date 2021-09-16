@@ -10,6 +10,33 @@ class TransItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Card(
+      elevation: 5.0,
+      margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30.0,
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: FittedBox(
+              child: Text('\$${money.toStringAsFixed(2)}'),
+            ),
+          ),
+        ),
+        title: Text(
+          name,
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        subtitle: Text(
+          DateFormat.yMMMd().format(date),
+        ),
+      ),
+    );
+  }
+
+  /*
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
@@ -53,4 +80,5 @@ class TransItem extends StatelessWidget {
       ],
     );
   }
+  */
 }
