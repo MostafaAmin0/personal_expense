@@ -12,9 +12,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TransactionList transactions = TransactionList();
 
-  void addNewTx(String title, double price , DateTime date) {
+  void addNewTx(String title, double price, DateTime date) {
     setState(() {
-      transactions.addTransaction(title, price,date);
+      transactions.addTransaction(title, price, date);
     });
   }
 
@@ -27,37 +27,49 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void deleteTransaction(String id){
+  void deleteTransaction(String id) {
     print('object');
     setState(() {
       transactions.deleteTransaction(id);
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Personal Expense'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            _showTransactionSheet(context);
+          },
+          child: Icon(
+            Icons.add_box,
+            color: Colors.white,
+            size: 20.0,
+          ),
+        )
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expense'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              _showTransactionSheet(context);
-            },
-            child: Icon(
-              Icons.add_box,
-              color: Colors.white,
-              size: 20.0,
-            ),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Chart(transactions.recentWeek),
-          ExpenseList(transactions,deleteTransaction),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                0.3,
+            child: Chart(transactions.recentWeek),
+          ),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                0.7,
+            child: ExpenseList(transactions, deleteTransaction),
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
