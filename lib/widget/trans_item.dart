@@ -3,10 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:personal_expense/models/transaction.dart';
 
 class TransItem extends StatelessWidget {
-  final Transaction tx; 
+  final Transaction tx;
   final Function deleteTrans;
 
-  TransItem({required this.tx,required this.deleteTrans});
+  TransItem({required this.tx, required this.deleteTrans});
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,27 @@ class TransItem extends StatelessWidget {
         subtitle: Text(
           DateFormat.yMMMd().format(tx.date),
         ),
-        trailing: TextButton(
-          child: Icon(Icons.delete),
-          style: TextButton.styleFrom(primary: Theme.of(context).errorColor),
-          onPressed: () {
-            deleteTrans(tx.id);
-          },
-        ),
+        trailing: MediaQuery.of(context).size.width > 460
+            ? TextButton.icon(
+                icon: Icon(Icons.delete),
+                style:
+                    TextButton.styleFrom(primary: Theme.of(context).errorColor),
+                onPressed: () {
+                  deleteTrans(tx.id);
+                },
+                label: Text(
+                  'Delete',
+                  style: TextStyle(color: Theme.of(context).errorColor),
+                ),
+              )
+            : TextButton(
+                child: Icon(Icons.delete),
+                style:
+                    TextButton.styleFrom(primary: Theme.of(context).errorColor),
+                onPressed: () {
+                  deleteTrans(tx.id);
+                },
+              ),
       ),
     );
   }
