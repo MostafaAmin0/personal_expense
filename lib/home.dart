@@ -11,6 +11,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TransactionList transactions = TransactionList();
+  bool _showChart = true;
 
   void addNewTx(String title, double price, DateTime date) {
     setState(() {
@@ -56,14 +57,27 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Show Chart'),
+              Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(() {
+                      _showChart = value;
+                    });
+                  }),
+            ],
+          ),
+          _showChart ? Container(
             height: (MediaQuery.of(context).size.height -
                     appBar.preferredSize.height -
                     MediaQuery.of(context).padding.top) *
-                0.3,
+                0.7,
             child: Chart(transactions.recentWeek),
-          ),
-          Container(
+          )
+          : Container(
             height: (MediaQuery.of(context).size.height -
                     appBar.preferredSize.height -
                     MediaQuery.of(context).padding.top) *
