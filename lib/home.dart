@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:personal_expense/widget/expense_list.dart';
 import 'package:personal_expense/widget/new_transaction.dart';
 import 'models/transaction_list.dart';
@@ -38,21 +42,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text('Personal Expense'),
-      actions: [
-        TextButton(
-          onPressed: () {
-            _showTransactionSheet(context);
-          },
-          child: Icon(
-            Icons.add_box,
-            color: Colors.white,
-            size: 20.0,
-          ),
-        )
-      ],
-    );
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text('Personal Expense'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CupertinoButton(
+                  child: Icon(
+                    CupertinoIcons.add,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    _showTransactionSheet(context);
+                  },
+                ),
+              ],
+            ),
+          )
+        : AppBar(
+            title: Text('Personal Expense'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  _showTransactionSheet(context);
+                },
+                child: Icon(
+                  Icons.add_box,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
+              )
+            ],
+          ) as PreferredSizeWidget;
 
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
@@ -66,9 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ExpenseList(transactions, deleteTransaction),
     );
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -76,8 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Show Chart'),
-                  Switch(
+                  Text(
+                    'Show Chart',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
                     value: _showChart,
                     onChanged: (value) {
                       setState(() {
@@ -103,16 +128,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showTransactionSheet(context);
-        },
-        child: Icon(
-          Icons.add,
-          size: 30.0,
-        ),
-      ),
     );
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar as ObstructingPreferredSizeWidget,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                _showTransactionSheet(context);
+              },
+              child: Icon(
+                Icons.add,
+                size: 30.0,
+              ),
+            ),
+          );
   }
 }
