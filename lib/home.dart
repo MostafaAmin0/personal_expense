@@ -68,38 +68,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: appBar,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Show Chart'),
-                Switch(
-                  value: _showChart,
-                  onChanged: (value) {
-                    setState(() {
-                      _showChart = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-          if (!isLandscape)
-            Container(
-              height: availableHeight * 0.3,
-              child: Chart(transactions.recentWeek),
-            ),
-          if (!isLandscape) exListWidget,
-          if (isLandscape)
-            _showChart
-                ? Container(
-                    height: availableHeight * 0.7,
-                    child: Chart(transactions.recentWeek),
-                  )
-                : exListWidget,
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (value) {
+                      setState(() {
+                        _showChart = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                height: availableHeight * 0.3,
+                child: Chart(transactions.recentWeek),
+              ),
+            if (!isLandscape) exListWidget,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: availableHeight * 0.7,
+                      child: Chart(transactions.recentWeek),
+                    )
+                  : exListWidget,
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
