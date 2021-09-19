@@ -40,6 +40,45 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildlandscape(double availableHeight, Widget exListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            value: _showChart,
+            onChanged: (value) {
+              setState(() {
+                _showChart = value;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: availableHeight * 0.7,
+              child: Chart(transactions.recentWeek),
+            )
+          : exListWidget,
+    ];
+  }
+
+  List<Widget> _buildPortrait(double availableHeight, Widget exListWidget) {
+    return [
+      Container(
+        height: availableHeight * 0.3,
+        child: Chart(transactions.recentWeek),
+      ),
+      exListWidget,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final PreferredSizeWidget appBar = Platform.isIOS
@@ -93,38 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Show Chart',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (!isLandscape)
-              Container(
-                height: availableHeight * 0.3,
-                child: Chart(transactions.recentWeek),
-              ),
-            if (!isLandscape) exListWidget,
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height: availableHeight * 0.7,
-                      child: Chart(transactions.recentWeek),
-                    )
-                  : exListWidget,
+            if (isLandscape) ..._buildlandscape(availableHeight, exListWidget),
+            if (!isLandscape) ..._buildPortrait(availableHeight, exListWidget),
           ],
         ),
       ),
