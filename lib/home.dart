@@ -79,41 +79,49 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  CupertinoNavigationBar _buildCupertinoNavigationBar(BuildContext context) {
+    return CupertinoNavigationBar(
+      middle: Text('Personal Expense'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CupertinoButton(
+            child: Icon(
+              CupertinoIcons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              _showTransactionSheet(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text('Personal Expense'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            _showTransactionSheet(context);
+          },
+          child: Icon(
+            Icons.add_box,
+            color: Colors.white,
+            size: 20.0,
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text('Personal Expense'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CupertinoButton(
-                  child: Icon(
-                    CupertinoIcons.add,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    _showTransactionSheet(context);
-                  },
-                ),
-              ],
-            ),
-          )
-        : AppBar(
-            title: Text('Personal Expense'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  _showTransactionSheet(context);
-                },
-                child: Icon(
-                  Icons.add_box,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
-              )
-            ],
-          ) as PreferredSizeWidget;
+        ? _buildCupertinoNavigationBar(context)
+        : _buildAppBar(context) as PreferredSizeWidget;
 
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
